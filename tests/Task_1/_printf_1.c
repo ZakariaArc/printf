@@ -43,7 +43,6 @@ int print_format(const char *format, va_list args)
 			write(1, format - 1, 1);
 			count++;
 		write(1, format, 1);
-		count++;
 		break;
 	}
 	return (count);

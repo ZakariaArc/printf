@@ -40,9 +40,8 @@ int print_format(const char *format, va_list args)
 		default:
 			write(1, format - 1, 1);
 			count++;
-			write(1, format, 1);
-			count++;
-			break;
+		write(1, format, 1);
+		break;
 	}
 	return (count);
 }
