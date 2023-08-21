@@ -31,7 +31,7 @@ int print_format(const char *format, va_list args)
 
 				c = sprintf(buffer, "%i", i);
 				if (c > 0)
-					/*count += write(1, buffer, strlen(buffer));*/
+					count += write(1, buffer, strlen(buffer));
 			}
 			break;
 		default:
