@@ -23,6 +23,8 @@ int print_format(const char *format, va_list args)
 			int d = va_arg(args, int);
 
 			buffer = malloc(sizeof(d));
+			if (buffer == NULL)
+				return (-1);
 			c = sprintf(buffer, "%d", d);
 			if (c > 0)
 				count += write(1, buffer, strlen(buffer));
@@ -33,6 +35,8 @@ int print_format(const char *format, va_list args)
 			int i = va_arg(args, int);
 
 			buffer = malloc(sizeof(i));
+			if (buffer == NULL)
+				return (-1);
 			c = sprintf(buffer, "%i", i);
 			if (c > 0)
 				count += write(1, buffer, strlen(buffer));
