@@ -1,5 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <string.h>
 /**
@@ -11,31 +12,35 @@
 int print_format(const char *format, va_list args)
 {
 	int count = 0;
+	char buffer[50];
+	int c;
 
 	switch (*format)
 	{
-		case 'c':
-			{
-				char c = (char)va_arg(args, int);
+		case 'd':
+		{
+			int d = va_arg(args, int);
+			
+			c = sprintf(buffer, "%d", d);
+			if (c > 0)
+				count += write(1, buffer, strlen(buffer));
+		}
+		break;
+		case 'i':
+		{
+			int i = va_arg(args, int);
+			c = sprintf(buffer, "%i", i);
+			if (c > 0)
+				count += write(1, buffer,strlen(buffer));
+		}
+		break;
 
-				count += write(1, &c, 1);
-			}
-			break;
-		case 's':
-			{
-				char *str = va_arg(args, char *);
-
-				if (str == NULL)
-					str = "(null)";
-				count += write(1, str, strlen(str));
-			}
-			break;
 		default:
 			write(1, format - 1, 1);
 			count++;
-			write(1, format, 1);
-			count++;
-			break;
+		write(1, format, 1);
+		count++;
+		break;
 	}
 	return (count);
 }
@@ -44,7 +49,7 @@ int print_format(const char *format, va_list args)
  * _printf - the custom printf function
  * @format: a format string
  * @...: the variable arguments
- * Return: the number of characters printed
+  * Return: the number of characters printed
  */
 int _printf(const char *format, ...)
 {
@@ -55,6 +60,7 @@ int _printf(const char *format, ...)
 		return (-1);
 
 	va_start(args, format);
+
 
 	while (*format)
 	{

@@ -10,24 +10,27 @@
  */
 int print_format(const char *format, va_list args)
 {
-	int count = 0;
+	int count = 0, c;
+	char buffer[50];
 
 	switch (*format)
 	{
-		case 'c':
+		case 'd':
 			{
-				char c = (char)va_arg(args, int);
+				int d = va_arg(args, int);
 
-				count += write(1, &c, 1);
+				c = sprintf(buffer, "%d", d);
+				if (c > 0)
+					count += write(1, buffer, strlen(buffer));
 			}
 			break;
-		case 's':
+			case 'i':
 			{
-				char *str = va_arg(args, char *);
+				int i = va_arg(args, int);
 
-				if (str == NULL)
-					str = "(null)";
-				count += write(1, str, strlen(str));
+				c = sprintf(buffer, "%i", i);
+				if (c > 0)
+					count += write(1, &i, 1);
 			}
 			break;
 		default:
@@ -44,7 +47,7 @@ int print_format(const char *format, va_list args)
  * _printf - the custom printf function
  * @format: a format string
  * @...: the variable arguments
- * Return: the number of characters printed
+  * Return: the number of characters printed
  */
 int _printf(const char *format, ...)
 {
@@ -53,6 +56,11 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+	if (format[0] == '%')
+	{
+		if (format[1] == '\0' || (format[1] == ' ' && format[2] == '\0'))
+			return (-1);
+	}
 
 	va_start(args, format);
 
