@@ -20,7 +20,7 @@ int print_format(const char *format, va_list args)
 		case 'd':
 		{
 			int d = va_arg(args, int);
-			
+
 			c = sprintf(buffer, "%d", d);
 			if (c > 0)
 				count += write(1, buffer, strlen(buffer));
@@ -29,9 +29,10 @@ int print_format(const char *format, va_list args)
 		case 'i':
 		{
 			int i = va_arg(args, int);
+
 			c = sprintf(buffer, "%i", i);
 			if (c > 0)
-				count += write(1, buffer,strlen(buffer));
+				count += write(1, buffer, strlen(buffer));
 		}
 		break;
 
@@ -58,6 +59,12 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+	if (format[0] == '%')
+	{
+		if (format[1] == '\0' || (format[1] == ' ' && format[2] == '\0'))
+			return (-1);
+	}
+
 
 	va_start(args, format);
 

@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio..h>
 #include <string.h>
 /**
  * print_format - handles printing based on format specifier
@@ -30,7 +31,7 @@ int print_format(const char *format, va_list args)
 
 				c = sprintf(buffer, "%i", i);
 				if (c > 0)
-					count += write(1, &i, 1);
+					count += write(1, buffer, strlen(buffer));
 			}
 			break;
 		default:
