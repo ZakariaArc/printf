@@ -87,7 +87,7 @@ int _printf(const char *format, ...)
 					count += print_percent(args);
 					break;
 				default:
-					count += print_unknown(format - 1);
+					count += print_unknown(*format);
 					break;
 			}
 		}
