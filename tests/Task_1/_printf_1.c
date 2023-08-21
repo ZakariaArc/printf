@@ -1,6 +1,7 @@
 #include "main.h"
 #include <stdarg.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 /**
@@ -12,7 +13,7 @@
 int print_format(const char *format, va_list args)
 {
 	int count = 0;
-	char buffer[50];
+	char *buffer;
 	int c;
 
 	switch (*format)
@@ -21,6 +22,7 @@ int print_format(const char *format, va_list args)
 		{
 			int d = va_arg(args, int);
 
+			buffer = malloc(sizeof(d));
 			c = sprintf(buffer, "%d", d);
 			if (c > 0)
 				count += write(1, buffer, strlen(buffer));
@@ -30,6 +32,7 @@ int print_format(const char *format, va_list args)
 		{
 			int i = va_arg(args, int);
 
+			buffer = malloc(sizeof(i));
 			c = sprintf(buffer, "%i", i);
 			if (c > 0)
 				count += write(1, buffer, strlen(buffer));

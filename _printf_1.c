@@ -1,7 +1,8 @@
 #include "main.h"
 #include <stdarg.h>
 #include <unistd.h>
-#include <stdio..h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 /**
  * print_format - handles printing based on format specifier
@@ -12,7 +13,7 @@
 int print_format(const char *format, va_list args)
 {
 	int count = 0, c;
-	char buffer[50];
+	char *buffer;
 
 	switch (*format)
 	{
@@ -20,6 +21,7 @@ int print_format(const char *format, va_list args)
 			{
 				int d = va_arg(args, int);
 
+				buffer = malloc(sizeof(d));
 				c = sprintf(buffer, "%d", d);
 				if (c > 0)
 					count += write(1, buffer, strlen(buffer));
@@ -29,6 +31,7 @@ int print_format(const char *format, va_list args)
 			{
 				int i = va_arg(args, int);
 
+				buffer = malloc(sizeof(i));
 				c = sprintf(buffer, "%i", i);
 				if (c > 0)
 					count += write(1, buffer, strlen(buffer));
