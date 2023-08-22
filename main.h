@@ -8,5 +8,6 @@
 #define _MAIN
 
 int _printf(const char *format, ...);
+int print_format(const char *format, va_list args);
 
 #endif
