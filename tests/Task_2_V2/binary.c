@@ -2,6 +2,67 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <string.h>
+
+int print_number(int n);
+int print_format(const char *format, va_list args);
+int print_binary(va_list args);
+
+/**
+ * print_number - prints a number
+ * @n: the number to print
+ * Return: the number of characters printed
+ */
+int print_number(int n)
+{
+	int count = 0;
+	char digit;
+
+	if (n < 0)
+	{
+		count += write(1, "-", 1);
+		n = -n;
+	}
+
+	if (n / 10)
+		count += print_number(n / 10);
+
+	digit = n % 10 + '0';
+	count += write(1, &digit, 1);
+	return (count);
+}
+
+/**
+ * print_binary - prints an unsigned int in binary
+ * @args: the variable argument list
+ * Return: the number of characters printed
+ */
+int print_binary(va_list args)
+{
+	unsigned int num = va_arg(args, unsigned int);
+	int count = 0;
+	unsigned int mask = 1 << (sizeof(unsigned int) * 8 - 1);
+	int found_one = 0;
+
+	while (mask > 0)
+	{
+		if (num & mask)
+		{
+			found_one = 1;
+			count += write(1, "1", 1);
+		}
+		else if (found_one)
+		{
+			count += write(1, "0", 1);
+		}
+		mask >>= 1;
+	}
+
+	if (!found_one)
+		count += write(1, "0", 1);
+
+	return (count);
+}
+
 /**
  * print_format - handles printing based on format specifier
  * @format: the format specifier
@@ -33,6 +94,17 @@ int print_format(const char *format, va_list args)
 		case '%':
 			count += write(1, "%", 1);
 			break;
+		case 'd':
+		case 'i':
+			{
+				int num = va_arg(args, int);
+
+				count += print_number(num);
+			}
+			break;
+		case 'b':
+			count += print_binary(args);
+			break;
 		default:
 			write(1, format - 1, 1);
 			count++;
@@ -40,6 +112,7 @@ int print_format(const char *format, va_list args)
 			count++;
 			break;
 	}
+
 	return (count);
 }
 
@@ -56,8 +129,7 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-	if (format[0] == '%'  && (format[1] == '\0' || (format[1] == ' ' && format[2] == '\0')))
-		return (-1);
+
 	va_start(args, format);
 
 	while (*format)
@@ -74,6 +146,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+
 	va_end(args);
 	return (count);
 }
