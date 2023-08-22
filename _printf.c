@@ -2,12 +2,14 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <string.h>
+
 /**
  * print_format - handles printing based on format specifier
  * @format: the format specifier
  * @args: the variable argument list
  * Return: the number of characters printed
  */
+
 int print_format(const char *format, va_list args)
 {
 	int count = 0;
@@ -52,6 +54,7 @@ int print_format(const char *format, va_list args)
  * @...: the variable arguments
  * Return: the number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
 	va_list args;
