@@ -14,30 +14,35 @@ int print_format(const char *format, va_list args)
 
 	if (*format)
 	{
-		if (*format == 'c')
+		switch (*format)
 		{
-			char c = (char)va_arg(args, int);
+			case 'c':
+				{
+				char c = va_arg(args, int);
 
-			count += write(1, &c, 1);
-		}
-		else if (*format == 's')
-		{
-			char *str = va_arg(args, char *);
+				count += write(1, &c, 1);
+				}
+			break;
+			case 's':
+				{
+				char *str = va_arg(args, char *);
 
-			if (str == NULL)
-				str = "(null)";
-			count += write(1, str, strlen(str));
+				if (str == NULL)
+					str = "(null)";
+				count += write(1, str, strlen(str));
+				}
+				break;
+			case '%':
+				count += write(1, "%", 1);
+				break;
+			default:
+				write(1, format - 1, 1);
+				count++;
+				write(1, format, 1);
+				count++;
+				break;
 		}
-		else if (*format == '%')
-			count += write(1, "%", 1);
-		else
-		{
-			write(1, format - 1, 1);
-			count++;
-			write(1, format, 1);
-			count++;
-		}
-		}
+	}
 	return (count);
 }
 
