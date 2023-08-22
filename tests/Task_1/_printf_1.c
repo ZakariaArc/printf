@@ -1,9 +1,33 @@
 #include "main.h"
 #include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+
+int print_number(int n);
+int print_format(const char *format, va_list args);
+
+/**
+ * print_number - prints a number
+ * @n: the number to print
+ * Return: the number of characters printed
+ */
+int print_number(int n)
+{
+	int count = 0;
+	char digit;
+	{
+		count += write(1, "-", 1);
+		n = -n;
+	}
+
+	if (n / 10)
+		count += print_number(n / 10);
+
+	digit = n % 10 + '0';
+	count += write(1, &digit, 1);
+	return (count);
+}
+
 /**
  * print_format - handles printing based on format specifier
  * @format: the format specifier
@@ -13,42 +37,44 @@
 int print_format(const char *format, va_list args)
 {
 	int count = 0;
-	char *buffer;
-	int c;
 
 	switch (*format)
 	{
+		case 'c':
+			{
+				char c = (char)va_arg(args, int);
+
+				count += write(1, &c, 1);
+			}
+			break;
+		case 's':
+			{
+				char *str = va_arg(args, char *);
+
+				if (str == NULL)
+					str = "(null)";
+				count += write(1, str, strlen(str));
+			}
+			break;
+		case '%':
+			count += write(1, "%", 1);
+			break;
 		case 'd':
-		{
-			int d = va_arg(args, int);
-
-			buffer = malloc(sizeof(d));
-			if (buffer == NULL)
-				return (-1);
-			c = sprintf(buffer, "%d", d);
-			if (c > 0)
-				count += write(1, buffer, strlen(buffer));
-		}
-		break;
 		case 'i':
-		{
-			int i = va_arg(args, int);
+			{
+				int num = va_arg(args, int);
 
-			buffer = malloc(sizeof(i));
-			if (buffer == NULL)
-				return (-1);
-			c = sprintf(buffer, "%i", i);
-			if (c > 0)
-				count += write(1, buffer, strlen(buffer));
-		}
-		break;
-
+				count += print_number(num);
+			}
+			break;
 		default:
 			write(1, format - 1, 1);
 			count++;
-		write(1, format, 1);
-		break;
+			write(1, format, 1);
+			count++;
+			break;
 	}
+
 	return (count);
 }
 
@@ -56,7 +82,7 @@ int print_format(const char *format, va_list args)
  * _printf - the custom printf function
  * @format: a format string
  * @...: the variable arguments
-  * Return: the number of characters printed
+ * Return: the number of characters printed
  */
 int _printf(const char *format, ...)
 {
@@ -65,15 +91,8 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
-	if (format[0] == '%')
-	{
-		if (format[1] == '\0' || (format[1] == ' ' && format[2] == '\0'))
-			return (-1);
-	}
-
 
 	va_start(args, format);
-
 
 	while (*format)
 	{
@@ -89,6 +108,7 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
+
 	va_end(args);
 	return (count);
 }
