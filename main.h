@@ -7,6 +7,8 @@
 #ifndef _MAIN
 #define _MAIN
 
+#define BUFF_SIZE 1024
+
 int _printf(const char *format, ...);
 int print_format(const char *format, va_list args);
 
