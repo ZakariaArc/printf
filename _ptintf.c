@@ -22,7 +22,7 @@ int print_format(const char *format, va_list args)
 
 				count += write(1, &c, 1);
 				}
-			break;
+				break;
 			case 's':
 				{
 				char *str = va_arg(args, char *);
