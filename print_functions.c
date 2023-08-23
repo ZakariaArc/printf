@@ -1,8 +1,8 @@
 #include "main.h"
 /**
- * print_char - prints a char
- * @types: the list a of arguments
- * @buffer: the buffer array to handle print
+ * print_char - prints char
+ * @types: list of arguments
+ * @buffer: the buffer array
  * @flags: calculates active flags
  * @width: the width
  * @precision: the precision specification
@@ -20,8 +20,8 @@ int print_char(va_list types, char buffer[],
 
 /**
  * print_string - prints a string
- * @types: the list a of arguments
- * @buffer: the buffer array to handle print
+ * @types: list of arguments
+ * @buffer: the buffer array
  * @flags: calculates active flags
  * @width: gets the width
  * @precision: preicision specification
@@ -75,7 +75,7 @@ int print_string(va_list types, char buffer[],
 }
 /**
  * print_percent - prints a percent sign
- * @types: the list of arguments
+ * @types: list of arguments
  * @buffer: the buffer array to handle print
  * @flags: calculates active flags
  * @width: gets the width
