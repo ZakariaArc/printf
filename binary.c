@@ -78,14 +78,12 @@ int print_format(const char *format, va_list args)
 		case 'c':
 			{
 				char c = (char)va_arg(args, int);
-
 				count += write(1, &c, 1);
 			}
 			break;
 		case 's':
 			{
 				char *str = va_arg(args, char *);
-
 				if (str == NULL)
 					str = "(null)";
 				count += write(1, str, strlen(str));
@@ -98,7 +96,6 @@ int print_format(const char *format, va_list args)
 		case 'i':
 			{
 				int num = va_arg(args, int);
-
 				count += print_number(num);
 			}
 			break;
@@ -113,7 +110,7 @@ int print_format(const char *format, va_list args)
 			break;
 	}
 
-	return (count);
+	return count;
 }
 
 /**
