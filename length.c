@@ -27,7 +27,7 @@ void get_length(const char *format, flags_t *flags, int *i)
 /**
  * parse_length - parses flags for printing
  * @flags: the pointer to a flags_t struct containing the length found
- * @args: va_list of arguments
+ * @args: va_list
  * @pfn: the func pointer to the func to be used for printing
  * @printed: the pointer to the count of characters printed
  */

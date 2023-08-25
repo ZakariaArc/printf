@@ -2,7 +2,8 @@
 /**
  * get_print - function to return a pointer to the appropriate print func.
  * @format: the format of the argument to be printed
- * Return: the pointer to the appropriate print func, OR NULL if no match is found.
+ * Return: the pointer to the appropriate print func,
+ * OR NULL if no match is found.
  */
 
 pfn_t get_print(const char *format)

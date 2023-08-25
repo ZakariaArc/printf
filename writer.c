@@ -17,7 +17,7 @@ int _putchar(char c)
  * @str: the given string
  * Return: the count of characters printed
  */
- 
+
 int _puts(char *str)
 {
 	int i = 0;

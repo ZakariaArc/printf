@@ -18,7 +18,7 @@ int _printf(const char *format, ...)
 		return (-1);
 	va_start(args, format);
 	(va_copy(args_flags, args), va_copy(args_width, args));
-    
+
 	for (; format && format[i]; i++)
 	{
 		if (format[i] == '%')
@@ -41,11 +41,11 @@ int _printf(const char *format, ...)
 		else
 			printed += _putchar(format[i]);
 	}
-    
+
 	va_end(args);
 	va_end(args_flags);
 	va_end(args_width);
-    
+
 	return (printed);
 }
 
@@ -73,6 +73,6 @@ int valid_precentage(const char *format, int *i)
 		else
 			break;
 	}
-    
+
 	return (1);
 }
