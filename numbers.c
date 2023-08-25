@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * print_int - prints integers from a va_list
+ * print_int - prints integers from  va_list
  * @list: the va_list of integers to be printed
  * Return: the number of characters printed
  */
@@ -16,7 +16,7 @@ int print_int(va_list list)
 }
 
 /**
- * print_unsigned - prints unsigned integers from a va_list
+ * print_unsigned - prints unsigned integers from  va_list
  * @list: the va_list of unsigned integers to be printed
  * Return: the number of characters printed
  */
