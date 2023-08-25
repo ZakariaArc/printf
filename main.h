@@ -18,11 +18,13 @@ typedef struct fmt
 } fmt_t;
 
 /**
- * struct flags - the structure for storing the status of different flag options
+ * struct flags - structure for storing the status of different flag options
  * @j: the integer that indicates the maximum number of characters to print
  * @plus: the integer that represents the plus sign option
  * @space: the integer that represents the space option
  * @hash: the integer that represents the hash option
+ * @l: the integer that represents the length option
+ * @h: the integer that represents the length option
  **/
 
 typedef struct flags
@@ -34,6 +36,13 @@ typedef struct flags
 	int l;
 	int h;
 } flags_t;
+
+/**
+ * struct width - the structure for storing width information
+ * @value: the width value
+ * @is_zero: the flag indicating if width is zero
+ * @is_astreak: the flag indicating if width is an asterisk (*)
+ */
 
 typedef struct width
 {
@@ -47,7 +56,7 @@ typedef struct width
  * @base: base value for the function
  * @pfn: the pointer to the function
  **/
-typedef struct
+typedef struct function_t
 {
 	int base;
 	int (*pfn)(va_list);
